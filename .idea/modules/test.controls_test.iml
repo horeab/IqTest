@@ -5,10 +5,11 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../LibGdxControls/src/test">
       <sourceFolder url="file://$MODULE_DIR$/../../../LibGdxControls/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../LibGdxControls/src/test/resources" type="java-test-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="test.controls.main" />
+    <orderEntry type="module" module-name="test.controls_main" />
     <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-backend-headless:1.9.8" level="project" />
     <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-box2d:1.9.8" level="project" />
     <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-backend-lwjgl:1.9.8" level="project" />
@@ -46,5 +47,5 @@
     <orderEntry type="library" name="Gradle: net.java.jinput:jinput-platform:natives-osx:2.0.5" level="project" />
     <orderEntry type="library" name="Gradle: org.objenesis:objenesis:2.1" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="test.controls.main" />
+  <component name="TestModuleProperties" production-module="test.controls_main" />
 </module>

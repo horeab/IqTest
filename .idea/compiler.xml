@@ -2,12 +2,10 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="Lett.test" target="1.8" />
       <module name="Lett_main" target="1.8" />
       <module name="Lett_test" target="1.8" />
-      <module name="LibGdxControls.main" target="1.8" />
-      <module name="Skel.main" target="1.8" />
-      <module name="test.controls.test" target="1.8" />
+      <module name="test.controls_main" target="1.8" />
+      <module name="test.controls_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

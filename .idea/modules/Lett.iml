@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="test.controls" external.linked.project.path="$MODULE_DIR$/../../../LibGdxControls" external.root.project.path="$MODULE_DIR$/../../../LibGdxControls" external.system.id="GRADLE" external.system.module.group="" external.system.module.version="1.0-SNAPSHOT" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="Lett" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="" external.system.module.version="1.0-SNAPSHOT" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../LibGdxControls">
-      <excludeFolder url="file://$MODULE_DIR$/../../../LibGdxControls/.gradle" />
-      <excludeFolder url="file://$MODULE_DIR$/../../../LibGdxControls/build" />
-      <excludeFolder url="file://$MODULE_DIR$/../../../LibGdxControls/out" />
+    <content url="file://$MODULE_DIR$/../..">
+      <excludeFolder url="file://$MODULE_DIR$/../../.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../out" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -47,5 +47,6 @@
     <orderEntry type="library" name="Gradle: org.powermock:powermock-reflect:1.6.1" level="project" />
     <orderEntry type="library" name="scala-sdk-2.12.0" level="application" />
     <orderEntry type="library" name="scala-sdk-2.12.7" level="application" />
+    <orderEntry type="module" module-name="test.controls_main" />
   </component>
 </module>
