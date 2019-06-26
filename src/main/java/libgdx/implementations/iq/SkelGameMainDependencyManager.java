@@ -4,7 +4,7 @@ import libgdx.constants.GameIdEnum;
 import libgdx.controls.labelimage.InventoryTableBuilderCreator;
 import libgdx.controls.popup.RatingService;
 import libgdx.game.MainDependencyManager;
-import libgdx.game.ScreenManager;
+import libgdx.screens.ScreenManager;
 import libgdx.resources.Resource;
 import libgdx.resources.ResourceService;
 import libgdx.screens.AbstractScreen;

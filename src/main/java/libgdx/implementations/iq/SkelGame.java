@@ -3,7 +3,7 @@ package libgdx.implementations.iq;
 
 import libgdx.constants.GameIdEnum;
 import libgdx.game.Game;
-import libgdx.game.ScreenManager;
+import libgdx.screens.ScreenManager;
 import libgdx.game.external.AppInfoService;
 import libgdx.game.external.BillingService;
 import libgdx.game.external.FacebookService;
