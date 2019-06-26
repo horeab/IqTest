@@ -1,86 +1,63 @@
 package libgdx.screens.mainmenu;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Align;
 
-import libgdx.controls.animations.ActorAnimation;
+import libgdx.controls.button.ButtonBuilder;
+import libgdx.controls.button.MainButtonSkin;
 import libgdx.controls.button.MyButton;
-import libgdx.controls.button.builders.BackButtonBuilder;
 import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
+import libgdx.game.CurrentGame;
 import libgdx.game.Game;
+import libgdx.game.GameCreator;
+import libgdx.game.StoreService;
 import libgdx.graphics.GraphicUtils;
+import libgdx.implementations.iq.SkelDimen;
+import libgdx.implementations.iq.SkelGameButtonSize;
 import libgdx.resources.FontManager;
-import libgdx.resources.Resource;
+import libgdx.resources.MainResource;
+import libgdx.resources.Res;
 import libgdx.resources.dimen.MainDimen;
 import libgdx.screens.AbstractScreen;
 import libgdx.utils.ScreenDimensionsManager;
+import libgdx.utils.model.RGBColor;
 
 public class MainMenuScreen extends AbstractScreen {
 
+    private StoreService storeService;
+    private CurrentGame currentGame;
+
     @Override
     public void buildStage() {
-        addButtons();
+        setBackgroundColor(RGBColor.WHITE);
+        initCurrentGameWithStateManager();
     }
 
-    private void addButtons() {
-        Table table = new Table();
-        float verticalGeneralMarginDimen = MainDimen.vertical_general_margin.getDimen();
-        if (Gdx.app.getType() == Application.ApplicationType.iOS) {
-            MyButton backBtn = new BackButtonBuilder().createScreenBackButton(this);
-            table.add(backBtn).padLeft(-MainDimen.horizontal_general_margin.getDimen() * 40).padTop(-verticalGeneralMarginDimen * 3).width(backBtn.getWidth()).height(backBtn.getHeight()).row();
+    private void initCurrentGameWithStateManager() {
+        storeService = new StoreService();
+        if (storeService.getCurrentQuestion() != 0) {
+            currentGame = new CurrentGame(storeService.getCurrentQuestion(), storeService.getCorrectAnswers(),
+                    storeService.getSkippedQuestions(), storeService.getOnlySkipped());
+        } else {
+            storeService.reset();
+            currentGame = new CurrentGame();
         }
-        table.setFillParent(true);
-        addTitle(table);
-        MyButton startGameBtn = createStartGameBtn();
-        table.add(startGameBtn).height(ScreenDimensionsManager.getScreenHeightValue(13)).width(ScreenDimensionsManager.getScreenWidthValue(70)).padTop(verticalGeneralMarginDimen * 4).row();
-        table.add().padTop(verticalGeneralMarginDimen * 17);
-        addActor(table);
+        GameCreator creator = new GameCreator(currentGame);
+        creator.refreshLevel();
     }
 
-    private void addTitle(Table table) {
-        Image titleRaysImage = GraphicUtils.getImage(Resource.title_rays);
-        new ActorAnimation(titleRaysImage, this).animateFastFadeInFadeOut();
-        float titleWidth = ScreenDimensionsManager.getScreenWidth();
-        float titleHeight = ScreenDimensionsManager.getNewHeightForNewWidth(titleWidth, titleRaysImage.getWidth(), titleRaysImage.getHeight());
-        titleRaysImage.setWidth(titleWidth);
-        titleRaysImage.setHeight(titleHeight);
-        titleRaysImage.setY(ScreenDimensionsManager.getScreenHeightValue(49));
-        addActor(titleRaysImage);
-        Stack titleLabel = createTitleLabel();
-        table.add(titleLabel)
-                .width(titleWidth)
-                .height(titleHeight)
-                .padBottom(MainDimen.vertical_general_margin.getDimen() * 1)
-                .row();
-    }
-
-    private Stack createTitleLabel() {
-        String appName = Game.getInstance().getAppInfoService().getAppName();
-        MyWrappedLabel titleLabel = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText(appName).build());
-        titleLabel.setFontScale(FontManager.calculateMultiplierStandardFontSize(appName.length() > 14 ? 1.5f : 2f));
-        titleLabel.setAlignment(Align.center);
-        return createTitleStack(titleLabel);
-    }
-
-    protected Stack createTitleStack(MyWrappedLabel titleLabel) {
-        Stack stack = new Stack();
-        Image image = GraphicUtils.getImage(Resource.title_background);
-        stack.addActor(image);
-        stack.addActor(titleLabel);
-        return stack;
-    }
-
-    private MyButton createStartGameBtn() {
-        return new BackButtonBuilder().createScreenBackButton(this);
+    private void saveCurrentState() {
+        storeService.putCorrectAnswers(currentGame.getCorrectAnswers());
+        storeService.putCurrentQuestion(currentGame.getCurrentQuestion());
+        storeService.putSkippedQuestions(currentGame.getSkippedQuestions());
+        storeService.putOnlySkipped(currentGame.areOnlySkippedQuestionsLeft());
     }
 
     @Override
     public void onBackKeyPress() {
+        saveCurrentState();
         Gdx.app.exit();
     }
 
