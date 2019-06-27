@@ -6,8 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import org.apache.commons.lang3.mutable.MutableInt;
-
 import java.util.List;
 
 import libgdx.controls.button.ButtonBuilder;
@@ -20,6 +18,7 @@ import libgdx.implementations.iq.SkelDimen;
 import libgdx.implementations.iq.SkelGame;
 import libgdx.implementations.iq.SkelGameButtonSize;
 import libgdx.implementations.iq.SkelGameLabel;
+import libgdx.implementations.iq.SkelGameSpecificResource;
 import libgdx.resources.FontManager;
 import libgdx.resources.MainResource;
 import libgdx.resources.Res;
@@ -55,8 +54,8 @@ public class GameCreator {
 
     private Table createHeader() {
         Table table = new Table();
-        float btnFont = FontManager.calculateMultiplierStandardFontSize(0.6f);
-        MyButton newGame = new ButtonBuilder(SkelGameLabel.new_game.getText(), btnFont).setButtonSkin(MainButtonSkin.DEFAULT).setFixedButtonSize(SkelGameButtonSize.HEADER_BUTTON).build();
+        float btnFontScale = FontManager.calculateMultiplierStandardFontSize(0.8f);
+        MyButton newGame = new ButtonBuilder(SkelGameLabel.new_game.getText(), btnFontScale).setButtonSkin(MainButtonSkin.DEFAULT).setFixedButtonSize(SkelGameButtonSize.HEADER_BUTTON).build();
         newGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -64,7 +63,7 @@ public class GameCreator {
             }
 
         });
-        MyButton skip = new ButtonBuilder(SkelGameLabel.skip.getText(), btnFont).setButtonSkin(MainButtonSkin.DEFAULT).setFixedButtonSize(SkelGameButtonSize.HEADER_BUTTON).build();
+        MyButton skip = new ButtonBuilder(SkelGameLabel.skip.getText(), btnFontScale).setButtonSkin(MainButtonSkin.DEFAULT).setFixedButtonSize(SkelGameButtonSize.HEADER_BUTTON).build();
         skip.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -76,7 +75,7 @@ public class GameCreator {
         table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText((currentGame.getCurrentQuestionToDisplay() + "/" + Question.values().length)).setFontScale(FontManager.getBigFontDim()).setSingleLineLabel().build())).pad(dimen);
         table.add().growX();
         table.add(newGame).width(newGame.getWidth()).height(newGame.getHeight());
-        table.add(skip).pad(dimen).width(skip.getWidth()).height(skip.getHeight());
+        table.add(skip).pad(dimen).width(skip.getWidth() + skip.getWidth() / 3).height(skip.getHeight());
         return table;
     }
 
@@ -89,7 +88,7 @@ public class GameCreator {
                 .growX()
                 .colspan(4)
                 .row();
-        table.setBackground(GraphicUtils.getNinePatch(MainResource.popup_background));
+        table.setBackground(GraphicUtils.getNinePatch(SkelGameSpecificResource.popup_background));
         int answerNr = 0;
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 4; j++) {

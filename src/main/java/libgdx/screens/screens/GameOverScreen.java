@@ -1,24 +1,19 @@
 package libgdx.screens.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
-import libgdx.game.CurrentGame;
 import libgdx.game.Game;
-import libgdx.game.GameCreator;
 import libgdx.game.QuestionService;
 import libgdx.game.StoreService;
 import libgdx.graphics.GraphicUtils;
 import libgdx.implementations.iq.SkelGameLabel;
 import libgdx.implementations.iq.SkelGameSpecificResource;
 import libgdx.resources.FontManager;
-import libgdx.resources.Res;
 import libgdx.resources.ResourcesManager;
 import libgdx.resources.dimen.MainDimen;
 import libgdx.screens.AbstractScreen;

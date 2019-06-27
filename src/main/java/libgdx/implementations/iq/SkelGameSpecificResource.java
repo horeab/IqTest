@@ -11,6 +11,7 @@ public enum SkelGameSpecificResource implements SpecificResource {
 
     // @formatter:off
 
+    popup_background("popup_background.png", Texture.class),
     finalscore("questions/finalscore.png", Texture.class),
     specific_labels("labels/labels", I18NBundle.class),;
     // @formatter:on
