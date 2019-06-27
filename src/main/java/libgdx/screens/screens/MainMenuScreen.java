@@ -1,27 +1,11 @@
-package libgdx.screens.mainmenu;
+package libgdx.screens.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-import libgdx.controls.button.ButtonBuilder;
-import libgdx.controls.button.MainButtonSkin;
-import libgdx.controls.button.MyButton;
-import libgdx.controls.label.MyWrappedLabel;
-import libgdx.controls.label.MyWrappedLabelConfigBuilder;
 import libgdx.game.CurrentGame;
-import libgdx.game.Game;
 import libgdx.game.GameCreator;
 import libgdx.game.StoreService;
-import libgdx.graphics.GraphicUtils;
-import libgdx.implementations.iq.SkelDimen;
-import libgdx.implementations.iq.SkelGameButtonSize;
-import libgdx.resources.FontManager;
-import libgdx.resources.MainResource;
-import libgdx.resources.Res;
-import libgdx.resources.dimen.MainDimen;
 import libgdx.screens.AbstractScreen;
-import libgdx.utils.ScreenDimensionsManager;
 import libgdx.utils.model.RGBColor;
 
 public class MainMenuScreen extends AbstractScreen {

@@ -17,6 +17,7 @@ import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
 import libgdx.graphics.GraphicUtils;
 import libgdx.implementations.iq.SkelDimen;
+import libgdx.implementations.iq.SkelGame;
 import libgdx.implementations.iq.SkelGameButtonSize;
 import libgdx.implementations.iq.SkelGameLabel;
 import libgdx.resources.FontManager;
@@ -89,22 +90,23 @@ public class GameCreator {
                 .colspan(4)
                 .row();
         table.setBackground(GraphicUtils.getNinePatch(MainResource.popup_background));
-        final MutableInt answerNr = new MutableInt(0);
+        int answerNr = 0;
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 4; j++) {
-                Image questionImage = GraphicUtils.getImage(Game.getInstance().getMainDependencyManager().createResourceService().getByName("q" + questionNr + "a" + answerNr.intValue()));
+                Image questionImage = GraphicUtils.getImage(Game.getInstance().getMainDependencyManager().createResourceService().getByName("q" + questionNr + "a" + answerNr));
                 float sideRatio = questionImage.getHeight() / ((float) questionImage.getWidth());
                 questionImage.setWidth(SkelDimen.side_answer_img.getDimen());
                 questionImage.setHeight(SkelDimen.side_answer_img.getDimen());
+                final int btnAnswerNr = answerNr;
                 questionImage.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        answerClick(answerNr.intValue());
+                        answerClick(btnAnswerNr);
                     }
 
                 });
                 table.add(questionImage).pad(verticalGeneralMarginDimen / 3).height(questionImage.getHeight() * sideRatio).width(questionImage.getWidth());
-                answerNr.setValue(answerNr.intValue() + 1);
+                answerNr++;
             }
             table.row();
         }
@@ -136,10 +138,10 @@ public class GameCreator {
     }
 
     private boolean isGameOver(int nextQuestion) {
-        boolean isGameOver = false;
+        boolean isGameOver;
         isGameOver = currentGame.getSkippedQuestions().isEmpty() && currentGame.areOnlySkippedQuestionsLeft();
         if (isGameOver) {
-            return isGameOver;
+            return true;
         }
         isGameOver = noNextQuestion(nextQuestion) && currentGame.getSkippedQuestions().isEmpty();
         return isGameOver;
@@ -172,6 +174,7 @@ public class GameCreator {
     }
 
     private void goToGameOver() {
+        SkelGame.getInstance().getScreenManager().showGameOver(service.calculateIq(currentGame.getCorrectAnswers()));
     }
 
     private void startNewGame() {

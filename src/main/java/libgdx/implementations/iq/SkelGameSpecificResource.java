@@ -5,14 +5,14 @@ import com.badlogic.gdx.utils.I18NBundle;
 
 import libgdx.game.Game;
 import libgdx.resources.SpecificResource;
+import sun.net.www.content.image.png;
 
 public enum SkelGameSpecificResource implements SpecificResource {
 
     // @formatter:off
 
-    specific_labels("labels/labels", I18NBundle.class),
-
-    ;
+    finalscore("questions/finalscore.png", Texture.class),
+    specific_labels("labels/labels", I18NBundle.class),;
     // @formatter:on
 
     private String path;

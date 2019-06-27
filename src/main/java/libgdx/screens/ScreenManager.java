@@ -10,8 +10,9 @@ public class ScreenManager extends AbstractScreenManager {
     @Override
     public void showMainScreen() {
         showScreen(ScreenTypeEnum.MAIN_MENU_SCREEN);
-//        showScreen(ScreenTypeEnum.GAME_SCREEN, LettersCampaignLevelEnum.LEVEL_0_0);
-//        showCampaignScreen();
     }
 
+    public void showGameOver(int finalScore) {
+        showScreen(ScreenTypeEnum.GAME_OVER_SCREEN, finalScore);
+    }
 }

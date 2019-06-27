@@ -11,14 +11,12 @@ public class QuestionService {
         return Question.getQuestion(questionNr).getAnwser() == answer;
     }
 
-    public static int calculateIq(int correctAnswers) {
-
+    public int calculateIq(int correctAnswers) {
         float ratio = 2.2f;
-
         return (int) Math.ceil(MIN_SCORE + (correctAnswers * ratio));
     }
 
-    public static String getLevelForScore(int score) {
+    public String getLevelForScore(int score) {
         String level = "";
         if (score < 70) {
             level = SkelGameLabel.verylow.getText();
