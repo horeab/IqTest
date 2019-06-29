@@ -9,12 +9,10 @@ import libgdx.resources.gamelabel.SpecificPropertiesUtils;
 public enum SkelGameLabel implements libgdx.resources.gamelabel.GameLabel {
 
 
-    cancel,
     new_game,
     skip,
     answerchoice,
     finalscoreexplanation,
-    scorelabel,
     verylow,
     low,
     normal,

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import libgdx.game.CurrentGame;
 import libgdx.game.GameCreator;
 import libgdx.game.StoreService;
+import libgdx.implementations.iq.SkelGameRatingService;
 import libgdx.screens.AbstractScreen;
 import libgdx.utils.model.RGBColor;
 
@@ -15,6 +16,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        new SkelGameRatingService(this).appLaunched();
         setBackgroundColor(RGBColor.WHITE);
         initCurrentGameWithStateManager();
     }

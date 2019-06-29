@@ -13,6 +13,10 @@ public class SkelGameRatingService extends RatingService {
 
     @Override
     protected RatingPopup createRatingPopup() {
-        return null;
+        return new RatingPopup(getScreen()) {
+            @Override
+            protected void addExtraButtons() {
+            }
+        };
     }
 }
