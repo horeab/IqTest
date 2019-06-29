@@ -39,6 +39,7 @@ public class GameOverScreen extends AbstractScreen {
         table.add(createQuestionImage()).row();
         table.add(createInfoLabel()).center().pad(MainDimen.vertical_general_margin.getDimen()).growX().colspan(4).row();
         addActor(table);
+        addLineTable();
     }
 
     private Table createInfoLabel() {
@@ -59,16 +60,16 @@ public class GameOverScreen extends AbstractScreen {
         return table;
     }
 
-    @Override
-    public void render(float delta) {
-        super.render(delta);
+    private void addLineTable() {
         float leftMarginPercent = (finalScore - QuestionService.MIN_SCORE)
                 / (float) (QuestionService.MAX_SCORE - QuestionService.MIN_SCORE);
-        ShapeRenderer shapeRenderer = new ShapeRenderer();
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rect(screenWidth * leftMarginPercent, screenHeight / 1.78f, screenWidth / 100, screenHeight / 4.4f);
-        shapeRenderer.end();
+        Table lineTable = new Table();
+        lineTable.setWidth(screenWidth / 100f);
+        lineTable.setHeight(screenHeight / 4.4f);
+        lineTable.setX(leftMarginPercent * screenWidth);
+        lineTable.setY(screenHeight / 1.78f);
+        lineTable.setBackground(GraphicUtils.getNinePatch(SkelGameSpecificResource.red_background));
+        addActor(lineTable);
     }
 
     @Override
