@@ -1,7 +1,5 @@
 package libgdx.implementations.iq;
 
-import org.json.Test;
-
 import libgdx.game.Game;
 import libgdx.resources.gamelabel.GameLabelUtils;
 import libgdx.resources.gamelabel.SpecificPropertiesUtils;
