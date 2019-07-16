@@ -55,7 +55,7 @@ public class GameOverScreen extends AbstractScreen {
     private Table createInfoLabel() {
         Table table = new Table();
         MyWrappedLabel infoLabel = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText((SkelGameLabel.finalscoreexplanation.getText())).setFontScale(FontManager.getSmallFontDim()).build());
-        table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText("" + finalScore).setSingleLineLabel().setTextStyle(ResourcesManager.getLabelRed()).setFontScale(FontManager.getBigFontDim()).build())).growX().row();
+        table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText("" + finalScore).setSingleLineLabel().setTextColor(Color.RED).setFontScale(FontManager.getBigFontDim()).build())).growX().row();
         table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText("(" + new QuestionService().getLevelForScore(finalScore) + ")").setSingleLineLabel().setFontScale(FontManager.getNormalFontDim()).build())).growX().row();
         table.add(infoLabel);
         return table;
