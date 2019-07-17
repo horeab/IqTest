@@ -75,7 +75,7 @@ public class GameCreator {
         table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText((currentGame.getCurrentQuestionToDisplay() + "/" + Question.values().length)).setFontScale(FontManager.getBigFontDim()).setSingleLineLabel().build())).pad(dimen);
         table.add().growX();
         table.add(newGame).width(newGame.getWidth()).height(newGame.getHeight());
-        table.add(skip).pad(dimen).width(skip.getWidth() + skip.getWidth() / 3).height(skip.getHeight());
+        table.add(skip).pad(dimen).width(skip.getWidth() + skip.getWidth() / 2).height(skip.getHeight());
         return table;
     }
 

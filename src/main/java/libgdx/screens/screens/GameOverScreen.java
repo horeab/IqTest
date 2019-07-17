@@ -46,8 +46,8 @@ public class GameOverScreen extends AbstractScreen {
             backButton.setY(ScreenDimensionsManager.getScreenHeight() - MainDimen.vertical_general_margin.getDimen() - backButton.getHeight());
             addActor(backButton);
         }
-        table.add(createQuestionImage()).row();
-        table.add(createInfoLabel()).center().pad(MainDimen.vertical_general_margin.getDimen()).growX().colspan(4).row();
+        table.add(createQuestionImage()).bottom().height(screenHeight / 2).row();
+        table.add(createInfoLabel()).center().height(screenHeight / 2).pad(MainDimen.vertical_general_margin.getDimen()).growX().row();
         addActor(table);
         addLineTable();
     }
@@ -57,7 +57,8 @@ public class GameOverScreen extends AbstractScreen {
         MyWrappedLabel infoLabel = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText((SkelGameLabel.finalscoreexplanation.getText())).setFontScale(FontManager.getSmallFontDim()).build());
         table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText("" + finalScore).setSingleLineLabel().setTextColor(Color.RED).setFontScale(FontManager.getBigFontDim()).build())).growX().row();
         table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText("(" + new QuestionService().getLevelForScore(finalScore) + ")").setSingleLineLabel().setFontScale(FontManager.getNormalFontDim()).build())).growX().row();
-        table.add(infoLabel);
+        table.add(infoLabel).row();
+        table.add().growY();
         return table;
     }
 
@@ -66,7 +67,8 @@ public class GameOverScreen extends AbstractScreen {
         Table table = new Table();
         float sideRatio = questionImage.getHeight() / ((float) questionImage.getWidth());
         int screenWidth = ScreenDimensionsManager.getScreenWidth();
-        table.add(questionImage).width(screenWidth).height(screenWidth * sideRatio);
+        table.add().growY().row();
+        table.add(questionImage).bottom().width(screenWidth).height(screenWidth * sideRatio);
         return table;
     }
 
@@ -77,7 +79,7 @@ public class GameOverScreen extends AbstractScreen {
         lineTable.setWidth(screenWidth / 100f);
         lineTable.setHeight(screenHeight / 4.4f);
         lineTable.setX(leftMarginPercent * screenWidth);
-        lineTable.setY(screenHeight / 1.78f);
+        lineTable.setY(screenHeight / 1.81f);
         lineTable.setBackground(GraphicUtils.getNinePatch(SkelGameSpecificResource.red_background));
         addActor(lineTable);
     }
