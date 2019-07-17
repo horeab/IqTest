@@ -24,6 +24,7 @@ import libgdx.resources.MainResource;
 import libgdx.resources.Res;
 import libgdx.resources.dimen.MainDimen;
 import libgdx.utils.ScreenDimensionsManager;
+import libgdx.utils.Utils;
 
 public class GameCreator {
 
@@ -67,9 +68,12 @@ public class GameCreator {
         skip.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                goToNextLevel(true);
+                if (Game.getInstance().getAppInfoService().screenShotMode()) {
+                    Utils.createChangeLangPopup();
+                } else {
+                    goToNextLevel(true);
+                }
             }
-
         });
         float dimen = MainDimen.horizontal_general_margin.getDimen();
         table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText((currentGame.getCurrentQuestionToDisplay() + "/" + Question.values().length)).setFontScale(FontManager.getBigFontDim()).setSingleLineLabel().build())).pad(dimen);

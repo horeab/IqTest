@@ -1,9 +1,6 @@
 package libgdx.screens;
 
-import libgdx.campaign.CampaignLevel;
-import libgdx.campaign.LettersCampaignLevelEnum;
 import libgdx.screen.AbstractScreenManager;
-import libgdx.screens.ScreenTypeEnum;
 
 public class ScreenManager extends AbstractScreenManager {
 

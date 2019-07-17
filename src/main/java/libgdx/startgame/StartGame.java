@@ -24,13 +24,18 @@ public class StartGame {
                     }
 
                     @Override
+                    public boolean screenShotMode() {
+                        return true;
+                    }
+
+                    @Override
                     public String getAppName() {
                         return "Crossword Garden";
                     }
 
                     @Override
                     public String getLanguage() {
-                        return "cs";
+                        return "th";
                     }
                 });
         libgdx.utils.startgame.StartGame.main(game, args);
