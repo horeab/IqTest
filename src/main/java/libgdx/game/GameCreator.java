@@ -13,6 +13,7 @@ import libgdx.controls.button.MainButtonSkin;
 import libgdx.controls.button.MyButton;
 import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
+import libgdx.controls.popup.ProVersionPopup;
 import libgdx.graphics.GraphicUtils;
 import libgdx.implementations.iq.SkelDimen;
 import libgdx.implementations.iq.SkelGame;
@@ -161,9 +162,12 @@ public class GameCreator {
     }
 
     private void goToLevel(int level) {
-        if (level % 10 == 0) {
+        if (level == 10 && !Game.getInstance().getAppInfoService().isProVersion()) {
+            new ProVersionPopup(Game.getInstance().getAbstractScreen()).addToPopupManager();
+        } else if (level == 20 || level == 30) {
             Game.getInstance().getAppInfoService().showPopupAd();
         }
+
         if (isGameOver(level)) {
             goToGameOver();
         } else if (noNextQuestion(level)) {
