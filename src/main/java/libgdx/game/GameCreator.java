@@ -17,6 +17,7 @@ import libgdx.controls.button.MyButton;
 import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
 import libgdx.controls.popup.ProVersionPopup;
+import libgdx.dbapi.GameStatsDbApiService;
 import libgdx.graphics.GraphicUtils;
 import libgdx.implementations.iq.SkelDimen;
 import libgdx.implementations.iq.SkelGame;
@@ -28,6 +29,7 @@ import libgdx.resources.MainResource;
 import libgdx.resources.Res;
 import libgdx.resources.dimen.MainDimen;
 import libgdx.screens.screens.GameOverScreen;
+import libgdx.utils.DateUtils;
 import libgdx.utils.ScreenDimensionsManager;
 import libgdx.utils.Utils;
 
@@ -153,6 +155,10 @@ public class GameCreator {
 
 
     public void refreshLevel() {
+        if (Game.getInstance().getCurrentUser() != null) {
+            new GameStatsDbApiService().incrementGameStatsQuestionsWon(Game.getInstance().getCurrentUser().getId(), Long.valueOf(DateUtils.getNowMillis()).toString());
+        }
+
         Group root = Game.getInstance().getAbstractScreen().getStage().getRoot();
         root.findActor(MAIN_TABLE_NAME).remove();
         addQuestionScreen(currentGame.getCurrentQuestion());
@@ -191,7 +197,7 @@ public class GameCreator {
     }
 
     private void goToLevel(int level) {
-        if (level == 10 && !Game.getInstance().getAppInfoService().isProVersion()) {
+        if (level == 10 && !Utils.isValidExtraContent()) {
             new ProVersionPopup(Game.getInstance().getAbstractScreen()).addToPopupManager();
         } else if (level == 20 || level == 30) {
             Game.getInstance().getAppInfoService().showPopupAd(new Runnable() {
