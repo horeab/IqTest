@@ -24,6 +24,7 @@ public class CurrentGame {
     }
 
     private void resetQA() {
+        questionWithAnswer.clear();
         for (Question question : Question.values()) {
             questionWithAnswer.put(question.getQuestionNr(), -1);
         }

@@ -18,7 +18,6 @@ import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
 import libgdx.game.Game;
 import libgdx.game.QuestionService;
-import libgdx.game.StoreService;
 import libgdx.graphics.GraphicUtils;
 import libgdx.implementations.iq.SkelGameLabel;
 import libgdx.implementations.iq.SkelGameSpecificResource;
@@ -48,7 +47,6 @@ public class GameOverScreen extends AbstractScreen {
             }
         }
         this.finalScore = questionService.calculateIq(totalCorrectAnswers);
-        new StoreService().reset();
     }
 
     @Override
@@ -82,7 +80,12 @@ public class GameOverScreen extends AbstractScreen {
                 if (Utils.isValidExtraContent()) {
                     screenManager.showCorrectAnswers(questionWithAnswer);
                 } else {
-                    displayInAppPurchasesPopup();
+                    displayInAppPurchasesPopup(new Runnable() {
+                        @Override
+                        public void run() {
+                            screenManager.showCorrectAnswers(questionWithAnswer);
+                        }
+                    });
                 }
             }
         });
@@ -97,8 +100,8 @@ public class GameOverScreen extends AbstractScreen {
         return table;
     }
 
-    public static void displayInAppPurchasesPopup() {
-        Game.getInstance().getInAppPurchaseManager().displayInAppPurchasesPopup(MainGameLabel.l_showanswers.getText() + "\n+" + MainGameLabel.billing_remove_ads.getText());
+    public static void displayInAppPurchasesPopup(Runnable redirectAfterBoughtScreen) {
+        Game.getInstance().getInAppPurchaseManager().displayInAppPurchasesPopup(MainGameLabel.l_showanswers.getText() + "\n+" + MainGameLabel.billing_remove_ads.getText(), redirectAfterBoughtScreen);
     }
 
     private Table createQuestionImage() {
@@ -128,4 +131,9 @@ public class GameOverScreen extends AbstractScreen {
         Game.getInstance().getScreenManager().showMainScreen();
     }
 
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+        Utils.createChangeLangPopup();
+    }
 }

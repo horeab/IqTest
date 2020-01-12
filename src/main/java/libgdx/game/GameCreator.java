@@ -37,12 +37,10 @@ public class GameCreator {
 
     private final static String MAIN_TABLE_NAME = "MAIN_TABLE_NAME";
 
-    private StoreService storeService;
     private CurrentGame currentGame;
 
     public GameCreator(CurrentGame currentGame) {
         this.currentGame = currentGame;
-        this.storeService = new StoreService();
         addQuestionScreen(currentGame.getCurrentQuestion());
     }
 
@@ -84,7 +82,7 @@ public class GameCreator {
         float dimen = MainDimen.horizontal_general_margin.getDimen();
         MyWrappedLabel currentQLabel = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText((currentGame.getCurrentQuestionToDisplay() + "/" + Question.values().length)).setFontScale(FontManager.getBigFontDim()).setSingleLineLabel().build());
         if (!Utils.isValidExtraContent()) {
-            Image mug = GraphicUtils.getImage(MainResource.mug);
+            final Image mug = GraphicUtils.getImage(MainResource.mug);
             float mugDimen = dimen * 7;
             mug.setWidth(mugDimen);
             mug.setHeight(mugDimen);
@@ -93,7 +91,12 @@ public class GameCreator {
             mug.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    GameOverScreen.displayInAppPurchasesPopup();
+                    GameOverScreen.displayInAppPurchasesPopup(new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshLevel();
+                        }
+                    });
                 }
             });
             firstRow.add().growX();
@@ -163,12 +166,7 @@ public class GameCreator {
         Group root = Game.getInstance().getAbstractScreen().getStage().getRoot();
         root.findActor(MAIN_TABLE_NAME).remove();
         addQuestionScreen(currentGame.getCurrentQuestion());
-        saveCurrentState();
-    }
-
-    private void saveCurrentState() {
-        storeService.putQuestionWithAnswer(currentGame.getQuestionWithAnswer());
-        storeService.putCurrentQuestion(currentGame.getCurrentQuestion());
+//        saveCurrentState();
     }
 
     private void answerClick(int answerNr) {
@@ -221,7 +219,6 @@ public class GameCreator {
             @Override
             public void run() {
                 currentGame.reset();
-                storeService.reset();
                 refreshLevel();
             }
         });
