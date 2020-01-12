@@ -1,15 +1,13 @@
 package libgdx.game;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CurrentGame {
 
     private int currentQuestion;
 
-    private Map<Integer, Integer> questionWithAnswer = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> questionWithAnswer = new LinkedHashMap<>();
 
     public CurrentGame() {
         resetQA();
