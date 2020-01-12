@@ -3,11 +3,10 @@ package libgdx.implementations.iq;
 
 import libgdx.constants.GameIdEnum;
 import libgdx.game.Game;
-import libgdx.screens.ScreenManager;
 import libgdx.game.external.AppInfoService;
-import libgdx.game.external.BillingService;
-import libgdx.game.external.FacebookService;
+import libgdx.login.GuestUserLoginService;
 import libgdx.screens.AbstractScreen;
+import libgdx.screens.ScreenManager;
 
 public class SkelGame extends Game<AppInfoService,
         SkelGameMainDependencyManager,
@@ -17,10 +16,14 @@ public class SkelGame extends Game<AppInfoService,
         GameIdEnum
         > {
 
-    public SkelGame(FacebookService facebookService,
-                  BillingService billingService,
-                  AppInfoService appInfoService) {
-        super(facebookService, billingService, appInfoService, new SkelGameMainDependencyManager());
+    public SkelGame(AppInfoService appInfoService) {
+        super(appInfoService, new SkelGameMainDependencyManager());
+    }
+
+    @Override
+    public void create() {
+        super.create();
+        loginService = new GuestUserLoginService();
     }
 
     public SkelGameDependencyManager getDependencyManager() {

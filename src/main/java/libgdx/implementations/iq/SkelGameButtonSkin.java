@@ -5,12 +5,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import libgdx.graphics.GraphicUtils;
 import libgdx.resources.Res;
+import libgdx.utils.model.FontColor;
 
 public enum SkelGameButtonSkin implements libgdx.controls.button.ButtonSkin {
 
     ;
 
-    SkelGameButtonSkin(Res imgUp, Res imgDown, Res imgChecked, Res imgDisabled, Color buttonDisabledFontColor) {
+    SkelGameButtonSkin(Res imgUp, Res imgDown, Res imgChecked, Res imgDisabled, FontColor buttonDisabledFontColor) {
         this.imgUp = imgUp;
         this.imgDown = imgDown;
         this.imgChecked = imgChecked;
@@ -22,7 +23,7 @@ public enum SkelGameButtonSkin implements libgdx.controls.button.ButtonSkin {
     private Res imgDown;
     private Res imgChecked;
     private Res imgDisabled;
-    private Color buttonDisabledFontColor;
+    private FontColor buttonDisabledFontColor;
 
     @Override
     public Drawable getImgUp() {
@@ -45,7 +46,7 @@ public enum SkelGameButtonSkin implements libgdx.controls.button.ButtonSkin {
     }
 
     @Override
-    public Color getButtonDisabledFontColor() {
+    public FontColor getButtonDisabledFontColor() {
         return buttonDisabledFontColor;
     }
 }

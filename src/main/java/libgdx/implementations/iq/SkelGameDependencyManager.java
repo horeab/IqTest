@@ -24,6 +24,11 @@ public class SkelGameDependencyManager extends CampaignGameDependencyManager {
     }
 
     @Override
+    protected String allQuestionText() {
+        return "";
+    }
+
+    @Override
     public Class<SkelGameSpecificResource> getSpecificResourceTypeEnum() {
         return SkelGameSpecificResource.class;
     }

@@ -1,33 +1,34 @@
 package libgdx.game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CurrentGame {
 
     private int currentQuestion;
 
-    private int correctAnswers;
-
-    private boolean onlySkippedQuestionsLeft;
-
-    private List<Integer> skippedQuestions = new ArrayList<Integer>();
+    private Map<Integer, Integer> questionWithAnswer = new HashMap<Integer, Integer>();
 
     public CurrentGame() {
+        resetQA();
     }
 
-    public CurrentGame(int currentQuestion, int correctAnswers, List<Integer> skippedQuestions, boolean onlySkippedQuestionsLeft) {
+    public CurrentGame(int currentQuestion, Map<Integer, Integer> questionWithAnswer) {
         this.currentQuestion = currentQuestion;
-        this.correctAnswers = correctAnswers;
-        this.skippedQuestions = skippedQuestions;
-        this.onlySkippedQuestionsLeft = onlySkippedQuestionsLeft;
+        this.questionWithAnswer = questionWithAnswer;
     }
 
     public void reset() {
         this.currentQuestion = 0;
-        this.correctAnswers = 0;
-        this.skippedQuestions = new ArrayList<Integer>();
-        this.onlySkippedQuestionsLeft = false;
+        resetQA();
+    }
+
+    private void resetQA() {
+        for (Question question : Question.values()) {
+            questionWithAnswer.put(question.getQuestionNr(), -1);
+        }
     }
 
     public int getCurrentQuestion() {
@@ -42,24 +43,11 @@ public class CurrentGame {
         this.currentQuestion = currentQuestion;
     }
 
-    public int getCorrectAnswers() {
-        return correctAnswers;
+    public Map<Integer, Integer> getQuestionWithAnswer() {
+        return questionWithAnswer;
     }
 
-    public void setCorrectAnswers(int correctAnswers) {
-        this.correctAnswers = correctAnswers;
+    public void setQuestionWithAnswer(Map<Integer, Integer> questionWithAnswer) {
+        this.questionWithAnswer = questionWithAnswer;
     }
-
-    public List<Integer> getSkippedQuestions() {
-        return skippedQuestions;
-    }
-
-    public boolean areOnlySkippedQuestionsLeft() {
-        return onlySkippedQuestionsLeft;
-    }
-
-    public void setOnlySkippedQuestionsLeft(boolean onlySkippedQuestionsLeft) {
-        this.onlySkippedQuestionsLeft = onlySkippedQuestionsLeft;
-    }
-
 }
