@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import libgdx.controls.animations.ActorAnimation;
 import libgdx.controls.button.ButtonBuilder;
 import libgdx.controls.button.MainButtonSkin;
 import libgdx.controls.button.MyButton;
@@ -23,9 +24,12 @@ import libgdx.implementations.iq.SkelGameButtonSize;
 import libgdx.implementations.iq.SkelGameLabel;
 import libgdx.implementations.iq.SkelGameSpecificResource;
 import libgdx.resources.FontManager;
+import libgdx.resources.MainResource;
 import libgdx.resources.Res;
 import libgdx.resources.dimen.MainDimen;
+import libgdx.screens.screens.GameOverScreen;
 import libgdx.utils.ScreenDimensionsManager;
+import libgdx.utils.Utils;
 
 public class GameCreator {
 
@@ -72,11 +76,36 @@ public class GameCreator {
                 goToNextLevel();
             }
         });
+        Table firstRow = new Table();
+        Table secondRow = new Table();
         float dimen = MainDimen.horizontal_general_margin.getDimen();
-        table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText((currentGame.getCurrentQuestionToDisplay() + "/" + Question.values().length)).setFontScale(FontManager.getBigFontDim()).setSingleLineLabel().build())).pad(dimen);
-        table.add().growX();
-        table.add(newGame).width(newGame.getWidth()).height(newGame.getHeight());
-        table.add(skip).pad(dimen).width(skip.getWidth() + skip.getWidth() / 2).height(skip.getHeight());
+        MyWrappedLabel currentQLabel = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText((currentGame.getCurrentQuestionToDisplay() + "/" + Question.values().length)).setFontScale(FontManager.getBigFontDim()).setSingleLineLabel().build());
+        if (!Utils.isValidExtraContent()) {
+            Image mug = GraphicUtils.getImage(MainResource.mug);
+            float mugDimen = dimen * 7;
+            mug.setWidth(mugDimen);
+            mug.setHeight(mugDimen);
+            new ActorAnimation(mug, Game.getInstance().getAbstractScreen()).animateZoomInZoomOut();
+            firstRow.add(mug).pad(dimen).growX().width(mugDimen).height(mugDimen);
+            mug.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    GameOverScreen.displayInAppPurchasesPopup();
+                }
+            });
+            firstRow.add().growX();
+            /////////////////
+            secondRow.add(currentQLabel).colspan(4);
+        } else {
+            firstRow.add(currentQLabel).width(ScreenDimensionsManager.getScreenWidthValue(25));
+        }
+
+        firstRow.add(newGame).pad(dimen).width(newGame.getWidth()).height(newGame.getHeight());
+        firstRow.add().growX();
+        firstRow.add(skip).pad(dimen).width(skip.getWidth() + skip.getWidth() / 2).height(skip.getHeight());
+        table.add(firstRow).growX();
+        table.row();
+        table.add(secondRow);
         return table;
     }
 
@@ -168,9 +197,6 @@ public class GameCreator {
             Game.getInstance().getAppInfoService().showPopupAd(new Runnable() {
                 @Override
                 public void run() {
-                    new StoreService().reset();
-                    currentGame.reset();
-                    refreshLevel();
                 }
             });
         }

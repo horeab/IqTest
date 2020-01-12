@@ -2,12 +2,16 @@ package libgdx.screens.screens;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import java.util.List;
 import java.util.Map;
 
+import libgdx.controls.button.ButtonBuilder;
+import libgdx.controls.button.MainButtonSize;
+import libgdx.controls.button.MainButtonSkin;
 import libgdx.controls.button.MyButton;
 import libgdx.controls.button.builders.BackButtonBuilder;
 import libgdx.controls.label.MyWrappedLabel;
@@ -20,13 +24,16 @@ import libgdx.implementations.iq.SkelGameLabel;
 import libgdx.implementations.iq.SkelGameSpecificResource;
 import libgdx.resources.FontManager;
 import libgdx.resources.dimen.MainDimen;
+import libgdx.resources.gamelabel.MainGameLabel;
 import libgdx.screens.AbstractScreen;
 import libgdx.utils.ScreenDimensionsManager;
+import libgdx.utils.Utils;
 import libgdx.utils.model.FontColor;
 import libgdx.utils.model.RGBColor;
 
 public class GameOverScreen extends AbstractScreen {
 
+    private Map<Integer, Integer> questionWithAnswer;
     private int finalScore;
     private int screenWidth = ScreenDimensionsManager.getScreenWidth();
     private int screenHeight = ScreenDimensionsManager.getScreenHeight();
@@ -34,6 +41,7 @@ public class GameOverScreen extends AbstractScreen {
     public GameOverScreen(Map<Integer, Integer> questionWithAnswer) {
         QuestionService questionService = new QuestionService();
         int totalCorrectAnswers = 0;
+        this.questionWithAnswer = questionWithAnswer;
         for (Map.Entry<Integer, Integer> entry : questionWithAnswer.entrySet()) {
             if (questionService.isAnswerCorrect(entry.getKey(), entry.getValue())) {
                 totalCorrectAnswers++;
@@ -56,6 +64,7 @@ public class GameOverScreen extends AbstractScreen {
         }
         table.add(createQuestionImage()).bottom().height(screenHeight / 2).row();
         table.add(createInfoLabel()).center().height(screenHeight / 2).pad(MainDimen.vertical_general_margin.getDimen()).growX().row();
+
         addActor(table);
         addLineTable();
     }
@@ -66,8 +75,30 @@ public class GameOverScreen extends AbstractScreen {
         table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText("" + finalScore).setSingleLineLabel().setTextColor(FontColor.RED).setFontScale(FontManager.getBigFontDim()).build())).growX().row();
         table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText("(" + new QuestionService().getLevelForScore(finalScore) + ")").setSingleLineLabel().setFontScale(FontManager.getNormalFontDim()).build())).growX().row();
         table.add(infoLabel).row();
-        table.add().growY();
+        MyButton correctAnswers = new ButtonBuilder(MainGameLabel.l_showanswers.getText(), FontManager.getNormalBigFontDim()).setButtonSkin(MainButtonSkin.DEFAULT).setFixedButtonSize(MainButtonSize.TWO_ROW_BUTTON_SIZE).build();
+        correctAnswers.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (Utils.isValidExtraContent()) {
+                    screenManager.showCorrectAnswers(questionWithAnswer);
+                } else {
+                    displayInAppPurchasesPopup();
+                }
+            }
+        });
+        table.add(correctAnswers).
+
+                width(correctAnswers.getWidth()).
+
+                height(correctAnswers.getHeight());
+        table.add().
+
+                growY();
         return table;
+    }
+
+    public static void displayInAppPurchasesPopup() {
+        Game.getInstance().getInAppPurchaseManager().displayInAppPurchasesPopup(MainGameLabel.l_showanswers.getText() + "\n+" + MainGameLabel.billing_remove_ads.getText());
     }
 
     private Table createQuestionImage() {

@@ -35,8 +35,7 @@ public class StoreService {
     }
 
     public void reset() {
-        putCurrentQuestion(0);
-        putQuestionWithAnswer(new HashMap<>());
+        preferencesService.clear();
     }
 
     private void putValue(String fieldName, int value) {
