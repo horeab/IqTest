@@ -16,6 +16,7 @@ import libgdx.resources.MainResource;
 import libgdx.resources.dimen.MainDimen;
 import libgdx.resources.gamelabel.MainGameLabel;
 import libgdx.screens.AbstractScreen;
+import libgdx.utils.Utils;
 import libgdx.utils.model.FontConfig;
 import libgdx.utils.model.RGBColor;
 
@@ -49,7 +50,7 @@ public class CorrectAnswersScreen extends AbstractScreen {
             Image questionImage = GraphicUtils.getImage(Game.getInstance().getMainDependencyManager().createResourceService().getByName("q" + question.getQuestionNr()));
             float questionDimen = dimen * 40;
             float sideRatio = questionImage.getHeight() / ((float) questionImage.getWidth());
-            qaTable.add(new MyWrappedLabel(question.getQuestionNr() + "", FontConfig.FONT_SIZE * 2)).padBottom(dimen / 2).padTop(dimen * 2).row();
+            qaTable.add(new MyWrappedLabel((question.getQuestionNr() + 1) + "", FontConfig.FONT_SIZE * 2)).padBottom(dimen / 2).padTop(dimen * 2).row();
             qaTable.add(questionImage).width(questionDimen).height(questionDimen * sideRatio).padBottom(dimen / 2).row();
             qaTable.add();
             table.add(qaTable).row();
@@ -87,5 +88,11 @@ public class CorrectAnswersScreen extends AbstractScreen {
     @Override
     public void onBackKeyPress() {
         screenManager.showGameOver(questionWithAnswer);
+    }
+
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+        Utils.createChangeLangPopup();
     }
 }
