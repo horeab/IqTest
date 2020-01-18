@@ -47,6 +47,7 @@ public class GameOverScreen extends AbstractScreen {
             }
         }
         this.finalScore = questionService.calculateIq(totalCorrectAnswers);
+
     }
 
     @Override

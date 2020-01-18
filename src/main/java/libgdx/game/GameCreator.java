@@ -69,7 +69,7 @@ public class GameCreator {
             }
 
         });
-        MyButton skip = new ButtonBuilder(SkelGameLabel.skip.getText(), btnFontScale).setButtonSkin(MainButtonSkin.DEFAULT).setFixedButtonSize(SkelGameButtonSize.HEADER_BUTTON).build();
+        final MyButton skip = new ButtonBuilder(SkelGameLabel.skip.getText(), btnFontScale).setButtonSkin(MainButtonSkin.DEFAULT).setFixedButtonSize(SkelGameButtonSize.HEADER_BUTTON).build();
         skip.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
